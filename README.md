@@ -10,7 +10,7 @@ Play the game: <https://www.roblox.com/games/18703010727/Oh-My-Prvd-Obby>
 
 ## Highlights
 
-- ObjectsProvider for loading client objects inspired by[Jukes Towers of
+- ObjectsProvider for loading client objects inspired by [Jukes Towers of
   Hell](https://www.roblox.com/games/8562822414/Jukes-Towers-of-Hell) and the
   [Multi-Tower
   Kit](https://www.roblox.com/games/6441545053/Fanofpixels-Multi-Tower-Kit-V4-Template-Place)
