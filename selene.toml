@@ -1,0 +1,6 @@
+std = "roblox"
+
+[lints]
+  shadowing = "allow"
+[config]
+  empty_if = { comments_count = true }

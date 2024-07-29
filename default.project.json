@@ -1,0 +1,26 @@
+{
+  "name": "Oh My Prvd Obby",
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "Packages": {
+        "$path": "Packages"
+      }
+    },
+    "ServerScriptService": {
+      "Runtime": {
+        "$path": "src/server"
+      }
+    },
+    "StarterPlayer": {
+      "StarterPlayerScripts": {
+        "Runtime": {
+          "$path": "src/client"
+        },
+        "PlayerModule": {
+          "$path": "src/PlayerModule.rbxm"
+        }
+      }
+    }
+  }
+}
