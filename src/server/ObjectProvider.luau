@@ -8,7 +8,7 @@ local Workspace = game:GetService("Workspace")
 local Runtime = ServerScriptService.Runtime
 local NetProvider = require(Runtime.NetProvider)
 local PlayerProvider = require(Runtime.PlayerProvider)
-local prvd = require(ReplicatedStorage.Packages.ohmyprvd)
+local prvd = require(ReplicatedStorage.Packages.prvd)
 local t = require(ReplicatedStorage.Packages.t)
 
 local OBJECTS_FOLDER = assert(Workspace:WaitForChild("Objects", 10), "Cannot find objects folder")
@@ -30,7 +30,7 @@ type Self = typeof(ObjectProvider)
 ObjectProvider.netProvider = prvd.use(NetProvider)
 ObjectProvider.playerProvider = prvd.use(PlayerProvider)
 
-function ObjectProvider.start(self: Self)
+function ObjectProvider.onStart(self: Self)
   OBJECTS_FOLDER.Parent = ServerStorage
   self.netProvider:connectToEvent("GetObjects", function(player)
     local player = player :: Player

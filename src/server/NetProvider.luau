@@ -2,7 +2,7 @@
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RunService = game:GetService("RunService")
-local prvd = require(ReplicatedStorage.Packages.ohmyprvd)
+local prvd = require(ReplicatedStorage.Packages.prvd)
 
 local IS_CLIENT = RunService:IsClient()
 

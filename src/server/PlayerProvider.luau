@@ -6,7 +6,7 @@ local Workspace = game:GetService("Workspace")
 
 local Runtime = ServerScriptService.Runtime
 local NetProvider = require(Runtime.NetProvider)
-local prvd = require(ReplicatedStorage.Packages.ohmyprvd)
+local prvd = require(ReplicatedStorage.Packages.prvd)
 
 export type PlayerSession = {
   checkpoint: number,
@@ -31,7 +31,7 @@ type Self = typeof(PlayerProvider)
 PlayerProvider.players = {} :: { [Player]: PlayerSession }
 PlayerProvider.netProvider = prvd.use(NetProvider)
 
-function PlayerProvider.init(self: Self)
+function PlayerProvider.onInit(self: Self)
   local function registerPlayer(newPlayer: Player)
     if self.players[newPlayer] ~= nil then
       return
@@ -87,6 +87,8 @@ function PlayerProvider.init(self: Self)
   end)
 
   local nextCheckpointEvent = self.netProvider:getEvent("NextCheckpoint")
+  warn("PASSED")
+
   for _, checkpoint in ipairs(CHECKPOINTS:GetChildren()) do
     if not checkpoint:IsA("BasePart") then
       continue
@@ -111,19 +113,18 @@ function PlayerProvider.init(self: Self)
       end
       self:setSession(player, "checkpoint", nextCheckpoint)
       session.leaderstats.Stage.Value = nextCheckpoint
-      print("FIRING")
       nextCheckpointEvent:FireClient(player, nextCheckpoint)
     end)
   end
-end
 
-function PlayerProvider.heartbeat(self: Self)
-  for _, session in pairs(self.players) do
-    if session.checkpoint == 4 then
-      continue
+  RunService.PostSimulation:Connect(function()
+    for _, session in pairs(self.players) do
+      if session.checkpoint == 4 then
+        continue
+      end
+      session.leaderstats.Time.Value = math.floor(os.clock() - session.startedAt)
     end
-    session.leaderstats.Time.Value = math.floor(os.clock() - session.startedAt)
-  end
+  end)
 end
 
 function PlayerProvider.getSession(self: Self, player: Player)

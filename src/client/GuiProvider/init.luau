@@ -7,7 +7,7 @@ local NetProvider = require(Runtime.NetProvider)
 local PlayerProvider = require(Runtime.PlayerProvider)
 
 local Fusion = require(ReplicatedStorage.Packages.Fusion)
-local prvd = require(ReplicatedStorage.Packages.ohmyprvd)
+local prvd = require(ReplicatedStorage.Packages.prvd)
 local t = require(ReplicatedStorage.Packages.t)
 local Child, Children = Fusion.Child, Fusion.Children
 
@@ -24,7 +24,7 @@ type Self = typeof(GuiProvider)
 GuiProvider.netProvider = prvd.use(NetProvider)
 GuiProvider.playerProvider = prvd.use(PlayerProvider)
 
-function GuiProvider.start(self: Self)
+function GuiProvider.onStart(self: Self)
   local scope = Fusion:scoped {
     Confetti = Confetti,
     Message = Message,

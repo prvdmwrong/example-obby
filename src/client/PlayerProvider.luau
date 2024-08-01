@@ -1,7 +1,7 @@
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local prvd = require(ReplicatedStorage.Packages.ohmyprvd)
+local prvd = require(ReplicatedStorage.Packages.prvd)
 
 export type Character = Model & {
   ["Body Colors"]: BodyColors,

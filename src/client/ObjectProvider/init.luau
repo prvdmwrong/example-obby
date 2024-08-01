@@ -6,7 +6,7 @@ local Runtime = script.Parent
 local NetProvider = require(Runtime.NetProvider)
 local PlayerProvider = require(Runtime.PlayerProvider)
 local Types = require(Runtime.ObjectProvider.Types)
-local prvd = require(ReplicatedStorage.Packages.ohmyprvd)
+local prvd = require(ReplicatedStorage.Packages.prvd)
 local t = require(ReplicatedStorage.Packages.t)
 
 type ObjectScript = Types.ObjectScript
@@ -45,7 +45,7 @@ local function runObjectThread(module: ModuleScript, object: Instance): typeof(s
   return newThread
 end
 
-function ObjectProvider.start(self: Self)
+function ObjectProvider.onStart(self: Self)
   -- If there are already runner threads present, delete them
   RUNNER_THREADS_FOLDER:ClearAllChildren()
 
