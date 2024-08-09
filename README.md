@@ -1,8 +1,9 @@
-# Oh My Prvd Obby Example
+# Prvd 'M Wrong/Oh My Prvd Obby Example
 
-See how [Oh My Prvd](https://github.com/team-fireworks/ohmyprvd) can be used to
-build a simple obby, decked with a JToH-esque client objects provider, a
-checkpoints provider, a networking provider, and a debug provider.
+See how [Prvd 'M Wrong 0.1](https://github.com/team-fireworks/ohmyprvd)
+(formerly Oh My Prvd) can be used to build a simple obby, decked with a
+JToH-esque client objects provider, a checkpoints provider, a networking
+provider, and a debug provider.
 
 Play the game: <https://www.roblox.com/games/18703010727/Oh-My-Prvd-Obby>
 

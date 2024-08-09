@@ -1,0 +1,66 @@
+diff --git a/ohmyprvd/lib/prvd.luau b/ohmyprvd/lib/prvd.luau
+index 3e6ea6f..c598a0d 100644
+--- a/ohmyprvd/lib/prvd.luau
++++ b/ohmyprvd/lib/prvd.luau
+@@ -211,7 +211,7 @@ function prvd.ignite(options: {
+       -- profilebegin ends when the thread dies
+       debug.profilebegin(label)
+       debug.setmemorycategory(label)
+-      callback()
++      callback(...)
+       debug.resetmemorycategory()
+     end
+   end
+@@ -290,7 +290,7 @@ function prvd.ignite(options: {
+       debug.setmemorycategory(identifier)
+     end
+     verbose("lifecycleEvent", identifier)
+-    local ok, result = xpcall(provider.init, parseError, provider)
++    local ok, result = xpcall(provider.onInit, parseError, provider)
+     if not ok then
+       local error: Error = result
+       throw("initError", error.trace, getIdentifier(provider), error.message)
+@@ -309,7 +309,7 @@ function prvd.ignite(options: {
+   for _, provider in ipairs(start) do
+     local identifier = getIdentifier(provider, ".onStart")
+     verbose("lifecycleEvent", identifier)
+-    threads.spawn(profileCallback(provider.start, identifier), provider)
++    threads.spawn(profileCallback(provider.onStart, identifier), provider)
+   end
+ 
+   for thread in pairs(awaitingThreads) do
+diff --git a/ohmyprvd/lib/utils/log.luau b/ohmyprvd/lib/utils/log.luau
+index c3cf1c1..b5c5058 100644
+--- a/ohmyprvd/lib/utils/log.luau
++++ b/ohmyprvd/lib/utils/log.luau
+@@ -67,6 +67,7 @@ local function fmtMessage(id: string, level: string, trace: string?, ...: unknow
+   end
+ 
+   local formatted = `[ohmyprvd {level}({id})]: {message}`
++  print(...)
+   if select("#", ...) > 0 then
+     formatted:format(...)
+   end
+diff --git a/ohmyprvd/lib/utils/threads.luau b/ohmyprvd/lib/utils/threads.luau
+index bc5e84c..154545d 100644
+--- a/ohmyprvd/lib/utils/threads.luau
++++ b/ohmyprvd/lib/utils/threads.luau
+@@ -30,12 +30,14 @@ type Pack = { [number]: any, n: number }
+ local freeThreads: { thread } = {}
+ local threads = {}
+ 
++local function run<T...>(f: (T...) -> (), thread: thread, ...)
++  f(...)
++  table.insert(freeThreads, thread)
++end
++
+ local function yield()
+   while true do
+-    local pack: Pack = table.pack(coroutine.yield())
+-    local resume: (...any) -> (), thread: thread = table.unpack(pack, 1, 2)
+-    resume(table.unpack(pack, 3, pack.n))
+-    table.insert(freeThreads, thread)
++    run(coroutine.yield())
+   end
+ end
+ 

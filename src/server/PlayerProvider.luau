@@ -87,7 +87,6 @@ function PlayerProvider.onInit(self: Self)
   end)
 
   local nextCheckpointEvent = self.netProvider:getEvent("NextCheckpoint")
-  warn("PASSED")
 
   for _, checkpoint in ipairs(CHECKPOINTS:GetChildren()) do
     if not checkpoint:IsA("BasePart") then
